@@ -50,53 +50,45 @@
 	<button onclick="generateFood()">点我选择</button>
 	<div id="food-display"></div>
 	<script>
-		const foods = ["汉堡", "披萨", "寿司", "火锅", "烤肉", "炸鸡", "炸鸡", "炸鸡", "炒饭", "麻辣烫", "烤鱼", "拉面"];
+const foods = ["重庆小面", "羊汤烩面", "椒麻鸡拌面", "葱油拌面", "火鸡面", "羊汤方便面", "砂锅酥肉面", "砂锅酥肉烩面", "藤椒鸡块（肉丝）面", "凉皮", "茄汁面", "凉皮","火腿鸡蛋面"];
 
-		function generateFood() {
-		    // Calculate the total weight of all options
-		    let totalWeight = 0;
-		    for (let i = 0; i < foods.length; i++) {
-		        if (foods[i] === "炸鸡") {
-		            totalWeight += 2; // Double the weight of "炸鸡"
-		        } else {
-		            totalWeight++;
-		        }
-		    }
+function generateFood() {
+    // Calculate the total weight of all options
+    let totalWeight = 0;
+    for (let i = 0; i < foods.length; i++) {
+        totalWeight++;
+    }
 
-		    // Generate a random number between 0 and the total weight
-		    const randomWeight = Math.floor(Math.random() * totalWeight);
+    // Generate a random number between 0 and the total weight
+    const randomWeight = Math.floor(Math.random() * totalWeight);
 
-		    // Find the selected food based on the random weight
-		    let weightSum = 0;
-		    let selectedFood = "";
-		    for (let i = 0; i < foods.length; i++) {
-		        if (foods[i] === "炸鸡") {
-		            weightSum += 2;
-		        } else {
-		            weightSum++;
-		        }
+    // Find the selected food based on the random weight
+    let weightSum = 0;
+    let selectedFood = "";
+    for (let i = 0; i < foods.length; i++) {
+        weightSum++;
+        if (randomWeight < weightSum) {
+            selectedFood = foods[i];
+            break;
+        }
+    }
 
-		        if (randomWeight < weightSum) {
-		            selectedFood = foods[i];
-		            break;
-		        }
-		    }
+    // Display the selected food with random animation
+    const foodDisplay = document.getElementById("food-display");
+    foodDisplay.innerHTML = "";
+    const animationInterval = setInterval(function() {
+        const randomIndex = Math.floor(Math.random() * foods.length);
+        foodDisplay.innerHTML = foods[randomIndex];
+    }, 100);
 
-		    // Display the selected food with random animation
-		    const foodDisplay = document.getElementById("food-display");
-		    foodDisplay.innerHTML = "";
-		    const animationInterval = setInterval(function() {
-		        const randomIndex = Math.floor(Math.random() * foods.length);
-		        foodDisplay.innerHTML = foods[randomIndex];
-            }, 100);
-	    
-	    // Stop the animation after 2 seconds and display the final result
-	    setTimeout(function() {
-	        clearInterval(animationInterval);
-	        foodDisplay.classList.add("animate");
-	        foodDisplay.innerHTML = selectedFood;
-	    }, 2000);
-	}
+    // Stop the animation after 2 seconds and display the final result
+    setTimeout(function() {
+        clearInterval(animationInterval);
+        foodDisplay.classList.add("animate");
+        foodDisplay.innerHTML = selectedFood;
+    }, 2000);
+}
+
 </script>
 </body>
 </html>
